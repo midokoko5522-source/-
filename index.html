@@ -1,0 +1,139 @@
+# -<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحليل اللاعبين الجزائريين</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0d1b2a;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+        input[type="text"], button {
+            padding: 10px;
+            font-size: 16px;
+            margin: 5px;
+            border-radius: 5px;
+            border: none;
+        }
+        button {
+            background: #f0a500;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .result {
+            margin-top: 30px;
+            background: #1b263b;
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+            text-align: left;
+            min-width: 300px;
+        }
+        .stat {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>محلل اللاعبين الجزائريين</h1>
+
+    <input type="text" id="playerName" placeholder="أدخل اسم اللاعب بالعربية">
+    <button onclick="analyzePlayer()">تحليل</button>
+
+    <div class="result" id="result" style="display:none;">
+        <h2 id="playerTitle"></h2>
+        <p id="playerBio"></p>
+        <div id="playerStats"></div>
+    </div>
+
+    <script>
+        // قاعدة بيانات مبسطة للاعبين الجزائريين
+        const players = {
+            "رياض محرز": {
+                bio: "رياض محرز هو لاعب جزائري محترف يُعد من أبرز لاعبي الجناح الأيسر في العالم، وله مسيرة مميزة مع مانشستر سيتي ومنتخب الجزائر.",
+                stats: {
+                    "المباريات الدولية": 80,
+                    "الأهداف الدولية": 20,
+                    "التمريرات الحاسمة الدولية": 18,
+                    "الأندية الكبرى التي لعب لها": "مانشستر سيتي، ليستر سيتي"
+                }
+            },
+            "هلال سوداني": {
+                bio: "هلال سوداني لاعب جزائري محترف يلعب كمهاجم وأحد هدافي الجزائر عبر التاريخ. لعب في أندية أوروبية وعربية متعددة." ,
+                stats: {
+                    "المباريات الدولية": 56,
+                    "الأهداف الدولية": 24,
+                    "الأندية الكبرى": "دينامو زغرب، أوليمبياكوس"
+                }
+            },
+            "عبد المومن جابو": {
+                bio: "عبد المومن جابو لاعب جزائري سابق يشتهر بدوره في المنتخب الوطني والبطولات الأفريقية.",
+                stats: {
+                    "المباريات الدولية": 13,
+                    "الأهداف الدولية": 3,
+                    "الأندية الكبرى": "إي إس سطيف، MC Alger"
+                }
+            },
+            "رابح ماجر": {
+                bio: "رابح ماجر أسطورة كرة القدم الجزائرية وأحد أفضل المهاجمين في تاريخ المنتخب الجزائري." ,
+                stats: {
+                    "المباريات الدولية": 87,
+                    "الأهداف الدولية": 28,
+                    "الأندية الكبرى": "بورتو البرتغالي"
+                }
+            },
+            "جمّال بن العمري": {
+                bio: "جمّال بن العمري (مثال لاعب قديم) أحد لاعبي المنتخب الجزائري في السبعينات والثمانينات لعب في بطولات دولية.",
+                stats: {
+                    "المباريات الدولية": 48,
+                    "الأهداف الدولية": 8,
+                    "الأندية الكبرى": "MC Alger"
+                }
+            },
+            "دجمال بن عمري": {
+                bio: "دجمال بن لمّري مدافع جزائري محترف لعب لعدة أندية محلية وقارية.",
+                stats: {
+                    "المباريات الدولية": 30,
+                    "الأهداف الدولية": 1,
+                    "الأندية الكبرى": "ES Mostaganem، JS Kabylie"
+                }
+            }
+            // يمكنك إضافة المزيد هنا بنفس التنسيق
+        };
+
+        function analyzePlayer() {
+            const name = document.getElementById("playerName").value.trim();
+            const resultDiv = document.getElementById("result");
+            const title = document.getElementById("playerTitle");
+            const bio = document.getElementById("playerBio");
+            const statsDiv = document.getElementById("playerStats");
+
+            if (players[name]) {
+                const player = players[name];
+                title.textContent = name;
+                bio.textContent = player.bio;
+
+                statsDiv.innerHTML = '';
+                for (const stat in player.stats) {
+                    const p = document.createElement('p');
+                    p.className = 'stat';
+                    p.textContent = `${stat}: ${player.stats[stat]}`;
+                    statsDiv.appendChild(p);
+                }
+                resultDiv.style.display = 'block';
+            } else {
+                title.textContent = "لا يوجد معلومات عن هذا اللاعب";
+                bio.textContent = "";
+                statsDiv.innerHTML = '';
+                resultDiv.style.display = 'block';
+            }
+        }
+    </script>
+
+</body>
+  </html>
